@@ -9,30 +9,29 @@ import java.util.Objects;
 import java.util.Optional;
 
 @Service
-public class StudentService {
+class StudentService { // Talks between the API and our database.
 
     private final StudentRepository studentRepository;
 
     @Autowired
-    public StudentService(StudentRepository studentRepository) {
+    StudentService(StudentRepository studentRepository) {
         this.studentRepository = studentRepository;
     }
 
-    public List<Student> getStudents() {
+    List<Student> getStudents() {
         return studentRepository.findAll();
     }
 
-    public void addNewStudent(Student student) {
+    void addNewStudent(Student student) {
         Optional<Student> studentOptional = studentRepository.findStudentByEmail(student.getEmail());
 
         if (studentOptional.isPresent()) {
-            throw new IllegalStateException("email taken");
+            throw new IllegalStateException("Email is taken.");
         }
-        System.out.println(student);
         studentRepository.save(student);
     }
 
-    public void deleteStudent(Long studentId) {
+    void deleteStudent(Long studentId) {
         boolean exists = studentRepository.existsById(studentId);
         if (!exists) {
             throw new IllegalStateException("Student with id " + studentId + " does not exist.");
@@ -41,18 +40,18 @@ public class StudentService {
     }
 
     @Transactional
-    public void updateStudent(Long studentId, String name, String email) {
+    void updateStudent(Long studentId, String name, String email) {
         Student student = studentRepository
                 .findById(studentId)
                 .orElseThrow(() -> new IllegalStateException(
                         "Student with id " + studentId + " does not exist."
                 ));
 
-        if (name != null && !name.isEmpty() && !Objects.equals(student.getName(), name)) {
+        if (isNameValid(name, student)) {
             student.setName(name);
         }
 
-        if (email != null && !email.isEmpty() && !Objects.equals(student.getEmail(), email)) {
+        if (isEmailValid(email, student)) {
             Optional<Student> studentOptional = studentRepository.findStudentByEmail(email);
 
             if (studentOptional.isPresent()) {
@@ -61,5 +60,13 @@ public class StudentService {
             student.setEmail(email);
         }
 
+    }
+
+    private boolean isEmailValid(String email, Student student) {
+        return email != null && !email.isEmpty() && !Objects.equals(student.getEmail(), email);
+    }
+
+    private boolean isNameValid(String name, Student student) {
+        return name != null && !name.isEmpty() && !Objects.equals(student.getName(), name);
     }
 }

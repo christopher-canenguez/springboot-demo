@@ -10,7 +10,7 @@ import java.util.List;
 import static java.time.Month.JANUARY;
 
 @Configuration
-public class StudentConfig {
+class StudentConfig {
 
     @Bean
     CommandLineRunner commandLineRunner(StudentRepository studentRepository) {

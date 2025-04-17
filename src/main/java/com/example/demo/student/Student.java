@@ -7,14 +7,17 @@ import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
 import java.time.Period;
 
+@Setter
 @Entity
-@Table
-public class Student {
-    @Id
+@Table // Creates table in database for this object.
+class Student {
+    @Id // Primary Key.
     @SequenceGenerator(
             name = "student_sequence",
             sequenceName = "student_sequence",
@@ -25,8 +28,11 @@ public class Student {
             generator = "student_sequence"
     )
     private Long id;
+    @Getter
     private String name;
+    @Getter
     private String email;
+    @Getter
     private LocalDate dateOfBirth;
 
     @Transient // Specifies that this doesn't need to be a column in our database.
@@ -35,67 +41,31 @@ public class Student {
     public Student() {
     }
 
-    public Student(Long id, String name, String email, LocalDate dateOfBirth) {
+    Student(Long id, String name, String email, LocalDate dateOfBirth) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.dateOfBirth = dateOfBirth;
     }
 
-    public Student(String name, String email, LocalDate dateOfBirth) {
+    Student(String name, String email, LocalDate dateOfBirth) {
         this.name = name;
         this.email = email;
-        this.dateOfBirth = dateOfBirth;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public LocalDate getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
     public Integer getAge() {
-        return Period.between(this.dateOfBirth, LocalDate.now()).getYears();
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
+        return Period.between(this.dateOfBirth, LocalDate.now()).getYears(); // Calculates age using dateOfBirth of student.
     }
 
     @Override
     public String toString() {
         return "Student{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", dob=" + dateOfBirth +
-                ", age=" + age +
+                "Id = " + id +
+                ", Name = '" + name + '\'' +
+                ", Email = '" + email + '\'' +
+                ", Date of Birth = " + dateOfBirth +
+                ", Age = " + age +
                 '}';
     }
 }
