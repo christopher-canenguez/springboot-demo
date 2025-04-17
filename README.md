@@ -31,11 +31,11 @@ The app currently supports the following endpoints:
 
 You can test all of these endpoints directly via the Swagger UI.
 
-### Swagger UI
+## Swagger UI
 
 Once the app is running, access Swagger UI at: http://localhost:8080/swagger-ui/index.html#/
 
-📚 Learning Goals
+## 📚 Learning Goals
 This project was built with the following learning objectives in mind:
 
 Practice building REST APIs with Spring Boot
@@ -49,7 +49,7 @@ Understand layered architecture (Controller-Service-Repository)
 Get comfortable with application setup and configuration
 
 
-🧑‍💻 Author
+## 🧑‍💻 Author
 
 Name: Christopher Canenguez
 
