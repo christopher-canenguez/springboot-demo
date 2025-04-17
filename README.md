@@ -49,6 +49,10 @@ Understand layered architecture (Controller-Service-Repository)
 Get comfortable with application setup and configuration
 
 🧑‍💻 Author
+
 Name: Christopher Canenguez
+
 GitHub: @christopher-canenguez
+
 LinkedIn: https://www.linkedin.com/in/christopher-canenguez-81332321b/
+
